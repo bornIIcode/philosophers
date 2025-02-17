@@ -19,8 +19,8 @@ typedef struct s_philo
 	int				id;
 	int				eating;
 	int				meals_eaten;
-	size_t		last_meal;       //size_t later if needed
 	size_t		start_time;
+	size_t		last_meal;       //size_t later if needed
 	int				*dead;
 	int		num_of_philos;
 	pthread_mutex_t	*r_fork;
@@ -36,7 +36,6 @@ typedef struct s_program
 {
 	int				      dead_flag;
 	pthread_mutex_t	dead_lock;
-	// pthread_mutex_t	*forks;
 	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	write_lock;
 	t_philo			    *philos;
@@ -67,6 +66,8 @@ void init_prog(t_program *prog, t_philo *philo);
 void init_philos(t_program *prog, t_philo *philo, pthread_mutex_t *forks, char **argv);
 void init_forks(pthread_mutex_t *forks, int num_philo);
 int	check_if_dead(t_program *prog);
+int	philo_dead(t_philo *philo, size_t time_to_die);
+
 
 
 

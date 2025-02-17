@@ -37,27 +37,6 @@ void print_error(int flag, char *str)
   }
 }
 
-// int dead_loop(t_philo *philo)
-// {
-// 	pthread_mutex_lock(philo->dead_lock);
-// 	if(*philo->dead == 1)
-// 	{
-// 		pthread_mutex_unlock(philo->dead_lock);
-// 		return(1);
-// 	}
-// 	pthread_mutex_unlock(philo->dead_lock);
-// 	return(0);
-// }
-
-int dead_loop(t_philo *philo)
-{
-    pthread_mutex_lock(philo->dead_lock);
-    int is_dead = *philo->dead; // Store the dead status in a local variable
-    pthread_mutex_unlock(philo->dead_lock);
-    return is_dead; // Return the dead status
-}
-
-
 void print_msg(t_philo *philo, int id, char *str)
 {
 	size_t time;
@@ -88,18 +67,6 @@ int ft_usleep(size_t milliseconds)
 		usleep(500);
 	return(0);
 
-}
-
-void init_forks(pthread_mutex_t *forks, int num_philo)
-{
-	int i;
-
-	i = 0;
-	while(i < num_philo)
-	{
-		pthread_mutex_init(&forks[i], NULL);
-		i++;
-	}
 }
 
 int all_eat(t_program *prog)

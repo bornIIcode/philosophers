@@ -6,7 +6,7 @@ CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 RM = rm -rf
 
-SRC = main.c creat_threads.c utils.c routine.c actions.c init.c monitor.c\
+SRC = main.c creat_threads.c dead_monitor.c utils.c routine.c actions.c init.c \
 
 OBJ = $(SRC:.c=.o)
 

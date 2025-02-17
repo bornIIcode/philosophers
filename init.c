@@ -52,13 +52,25 @@ void init_philos(t_program *prog, t_philo *philo, pthread_mutex_t *forks, char *
     philo[i].meal_lock = &prog->meal_lock;
     philo[i].prog = prog;
     philo[i].l_fork = &forks[i];
-    // philo[i].r_fork = &forks[(i - 1) % prog->num_of_philos];
+    philo[i].r_fork = &forks[(i - 1) % prog->num_of_philos];
     // pthread_mutex_init(philo[i].l_fork, NULL);
     // pthread_mutex_init(philo[i].r_fork, NULL);
-    if (i == 0)
-    philo[i].r_fork = &forks[philo[i].num_of_philos - 1];
-    else
-    philo[i].r_fork = &forks[i - 1];
+    // if (i == 0)
+    // philo[i].r_fork = &forks[philo[i].num_of_philos - 1];
+    // else
+    // philo[i].r_fork = &forks[i - 1];
     i++;
   }
+}
+
+void init_forks(pthread_mutex_t *forks, int num_philo)
+{
+	int i;
+
+	i = 0;
+	while(i < num_philo)
+	{
+		pthread_mutex_init(&forks[i], NULL);
+		i++;
+	}
 }
