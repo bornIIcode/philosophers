@@ -28,22 +28,22 @@ typedef struct s_philo
 	pthread_mutex_t	*write_lock;
 	pthread_mutex_t	*dead_lock;
 	pthread_mutex_t	*meal_lock;
-  struct s_program *prog;
+  	struct s_program *prog;
 }	t_philo;
 
 
 typedef struct s_program
 {
-	int				      dead_flag;
+	int				dead_flag;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	write_lock;
-	t_philo			    *philos;
-  int		num_of_philos;
-  int		time_to_die;     // size_t later if needed
+	t_philo			   *philos;
+  	int		num_of_philos;
+  	int		time_to_die;     // size_t later if needed
 	int		time_to_eat;    // size_t later if needed
 	int		time_to_sleep;
-  int		num_times_to_eat;
+ 	int		num_times_to_eat;
 }	t_program;
 
 

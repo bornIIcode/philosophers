@@ -7,7 +7,7 @@ void init_input(t_program *prog, char **argv)
   prog->time_to_eat = ft_atoi(argv[3]);
   prog->time_to_sleep = ft_atoi(argv[4]);
   prog->num_times_to_eat = -1;   // keep eating indefinitely
-  if(prog->num_of_philos == -1)
+  if(prog->num_of_philos <= -1 || prog->num_of_philos == 0)
       print_error(1, "Error : invalide number of philos\n");
   if(prog->time_to_die == -1)
       print_error(1, "Error : invalide time to die\n");
@@ -40,7 +40,6 @@ void init_philos(t_program *prog, t_philo *philo, pthread_mutex_t *forks, char *
   i = 0;
   while(i < ft_atoi(argv[1]))
   {
-    init_input(prog, argv);
     philo[i].id = i + 1;
     philo[i].eating = 0;
     philo[i].meals_eaten = 0;
@@ -52,13 +51,7 @@ void init_philos(t_program *prog, t_philo *philo, pthread_mutex_t *forks, char *
     philo[i].meal_lock = &prog->meal_lock;
     philo[i].prog = prog;
     philo[i].l_fork = &forks[i];
-    philo[i].r_fork = &forks[(i - 1) % prog->num_of_philos];
-    // pthread_mutex_init(philo[i].l_fork, NULL);
-    // pthread_mutex_init(philo[i].r_fork, NULL);
-    // if (i == 0)
-    // philo[i].r_fork = &forks[philo[i].num_of_philos - 1];
-    // else
-    // philo[i].r_fork = &forks[i - 1];
+    philo[i].r_fork = &forks[(i + 1) % prog->num_of_philos];
     i++;
   }
 }

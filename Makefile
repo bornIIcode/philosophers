@@ -2,11 +2,11 @@ NAME = philo
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = #-Wall -Wextra -Werror  #-fsanitize=address # -fsanitize=thread
 
 RM = rm -rf
 
-SRC = main.c creat_threads.c dead_monitor.c utils.c routine.c actions.c init.c \
+SRC = main.c creat_threads.c dead_monitor.c utils.c philo_routine.c actions.c init.c \
 
 OBJ = $(SRC:.c=.o)
 

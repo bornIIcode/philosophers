@@ -23,7 +23,6 @@ int dead_loop(t_philo *philo)
 	return(0);
 }
 
-
 int	check_if_dead(t_program *prog)
 {
 	int	i;
@@ -47,10 +46,10 @@ int	philo_dead(t_philo *philo, size_t time_to_die)
 {
 	pthread_mutex_lock(philo->meal_lock);
 	if (get_time() - philo->last_meal >= time_to_die && philo->eating == 0)
-  {
-    pthread_mutex_unlock(philo->meal_lock);
+  	{
+    	pthread_mutex_unlock(philo->meal_lock);
 		return (1);
-  }
+  	}
 	pthread_mutex_unlock(philo->meal_lock);
 	return (0);
 }
