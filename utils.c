@@ -37,15 +37,27 @@ void print_error(int flag, char *str)
   }
 }
 
+// void print_msg(t_philo *philo, int id, char *str)
+// {
+// 	size_t time;
+
+// 	time = get_time() - philo->start_time;
+// 	pthread_mutex_lock(philo->write_lock);
+// 	if(!dead_loop(philo))
+// 		printf("%zu %d %s", time, id, str);
+// 	pthread_mutex_unlock(philo->write_lock);
+// }
+
 void print_msg(t_philo *philo, int id, char *str)
 {
-	size_t time;
+    size_t time;
 
-	time = get_time() - philo->start_time;
-	pthread_mutex_lock(philo->write_lock);
-	if(!dead_loop(philo))
-		printf("%zu %d %s", time, id, str);
-	pthread_mutex_unlock(philo->write_lock);
+    if (dead_loop(philo))  // check death before taking the lock
+        return;
+    time = get_time() - philo->start_time;
+    pthread_mutex_lock(philo->write_lock);
+    printf("%zu %d %s", time, id, str);
+    pthread_mutex_unlock(philo->write_lock);
 }
 
 size_t get_time(void)
@@ -64,7 +76,7 @@ int ft_usleep(size_t milliseconds)
 
 	start = get_time();
 	while(get_time() - start < milliseconds)
-		usleep(500);
+		usleep(100);
 	return(0);
 
 }

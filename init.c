@@ -9,16 +9,20 @@ void init_input(t_program *prog, char **argv)
   prog->num_times_to_eat = -1;   // keep eating indefinitely
   if(prog->num_of_philos <= -1 || prog->num_of_philos == 0)
       print_error(1, "Error : invalide number of philos\n");
-  if(prog->time_to_die == -1)
+  if(prog->time_to_die <= 0)
       print_error(1, "Error : invalide time to die\n");
-  if(prog->time_to_eat == -1)
+  if(prog->time_to_eat <= 0)
       print_error(1, "Error : invalide time to eat\n");
-  if(prog->time_to_sleep == -1)
+  if(prog->time_to_sleep <= 0)
       print_error(1, "Error : invalide time to sleep\n");
   if (prog->num_of_philos < 0 || prog->num_of_philos > 200)
       print_error(1, "Error : invalide number of philos\n");
   if (argv[5])
-      prog->num_times_to_eat = ft_atoi(argv[5]);
+  {
+    prog->num_times_to_eat = ft_atoi(argv[5]);
+    if(prog->num_times_to_eat <= 0)
+        print_error(1, "Error : invalide number of times to eat\n");
+  }
   if (prog->time_to_die < 60 || prog->time_to_eat < 60 || prog->time_to_sleep < 60)
       print_error(1, "Error : (time to die/time to eat/time to sleep) must be 60 or greater\n");
 }
@@ -52,6 +56,20 @@ void init_philos(t_program *prog, t_philo *philo, pthread_mutex_t *forks, char *
     philo[i].prog = prog;
     philo[i].l_fork = &forks[i];
     philo[i].r_fork = &forks[(i + 1) % prog->num_of_philos];
+
+    // // For even philosophers, assign right fork first
+    // if (i % 2 == 0)
+    // {
+    //     philo[i].r_fork = &forks[(i + 1) % prog->num_of_philos];  // right fork
+    //     philo[i].l_fork = &forks[i];                             // left fork
+    // }
+    // // For odd philosophers, assign left fork first
+    // else
+    // {
+    //     philo[i].l_fork = &forks[i];                          // left fork
+    //     philo[i].r_fork = &forks[(i + 1) % prog->num_of_philos]; // right fork
+    // }
+
     i++;
   }
 }

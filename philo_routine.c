@@ -10,7 +10,7 @@ void *philo_routine(void *args)
   if(philo->id % 2 == 0)
     ft_usleep(1);
   while(!dead_loop(philo))
-  {   
+  {
     eating(philo);
     sleeping(philo);
     thinking(philo);

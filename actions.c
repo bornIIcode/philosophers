@@ -6,10 +6,23 @@ void thinking(t_philo *philo)
 }
 
 
+// void sleeping(t_philo *philo)
+// {
+//   print_msg(philo, philo->id, "is sleeping\n");
+//   ft_usleep(philo->prog->time_to_sleep);
+// }
+
 void sleeping(t_philo *philo)
 {
-  print_msg(philo, philo->id, "is sleeping\n");
-  ft_usleep(philo->prog->time_to_sleep);
+    size_t sleep_start;
+    print_msg(philo, philo->id, "is sleeping\n");
+    sleep_start = get_time();
+    while(!dead_loop(philo))
+    {
+        if(get_time() - sleep_start >= (size_t)philo->prog->time_to_sleep)
+            break;
+        usleep(1000);  // Sleep in 1ms intervals
+    }
 }
 
 void eating(t_philo *philo)
@@ -23,15 +36,17 @@ void eating(t_philo *philo)
         ft_usleep(prog->time_to_die);
         return;
     }
+    if (prog->num_of_philos % 2 == 1)
+    ft_usleep(20);
     // for odd philo lock left fork first, then right fork
-    if (philo->id % 2 != 0) 
+    if (philo->id % 2 != 0)
     {
         pthread_mutex_lock(philo->l_fork);
         print_msg(philo, philo->id, "is taken a fork\n");
         pthread_mutex_lock(philo->r_fork);
         print_msg(philo, philo->id, "is taken a fork\n");
-    } 
-    else 
+    }
+    else
     {
         // for even philo lock right fork first, then left fork
         pthread_mutex_lock(philo->r_fork);
@@ -50,7 +65,18 @@ void eating(t_philo *philo)
     philo->meals_eaten++;
     philo->eating = 0;
     pthread_mutex_unlock(philo->meal_lock);
-    pthread_mutex_unlock(philo->l_fork);
-    pthread_mutex_unlock(philo->r_fork);
+    // Unlock forks in reverse order of acquisition
+    if (philo->id % 2 != 0)
+    {
+        pthread_mutex_unlock(philo->r_fork);
+        pthread_mutex_unlock(philo->l_fork);
+    }
+    else
+    {
+        pthread_mutex_unlock(philo->l_fork);
+        pthread_mutex_unlock(philo->r_fork);
+    }
+    // pthread_mutex_unlock(philo->l_fork);
+    // pthread_mutex_unlock(philo->r_fork);
 }
 
