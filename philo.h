@@ -11,6 +11,7 @@
 #include <sys/time.h>
 #include <string.h>
 
+
 struct s_program;
 
 typedef struct s_philo
@@ -67,6 +68,8 @@ void init_philos(t_program *prog, t_philo *philo, pthread_mutex_t *forks, char *
 void init_forks(pthread_mutex_t *forks, int num_philo);
 int	check_if_dead(t_program *prog);
 int	philo_dead(t_philo *philo, size_t time_to_die);
+int check_args(char **argv);
+int	ft_isdigit(int c);
 
 
 

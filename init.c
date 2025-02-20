@@ -1,5 +1,26 @@
 #include "philo.h"
 
+int check_args(char **argv)
+{
+    int i;
+    int j;
+
+    i = 1;
+    while(argv[i] != NULL)
+    {
+        j = 0;
+        while(argv[i][j] != '\0')
+        {
+            while(argv[i][j] == '+' || argv[i][j] == '\t' || argv[i][j] == ' ')
+                j++;
+            if(!ft_isdigit(argv[i][j]))
+                return(1);
+            j++;
+        }
+        i++;
+    }
+    return(0);
+}
 void init_input(t_program *prog, char **argv)
 {
   prog->num_of_philos = ft_atoi(argv[1]);

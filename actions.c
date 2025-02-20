@@ -28,15 +28,17 @@ void sleeping(t_philo *philo)
 void eating(t_philo *philo)
 {
     t_program *prog;
-    prog = philo->prog;
+    size_t eat_start;
 
+    prog = philo->prog;
+    eat_start = get_time();
     if (prog->num_of_philos == 1)
     {
         print_msg(philo, philo->id, "has taken a fork\n");
         ft_usleep(prog->time_to_die);
         return;
     }
-    if (prog->num_of_philos % 2 == 1)
+    if (prog->num_of_philos % 2 == 1)  // fixing if num philos even take some time 
     ft_usleep(20);
     // for odd philo lock left fork first, then right fork
     if (philo->id % 2 != 0)
@@ -60,7 +62,14 @@ void eating(t_philo *philo)
     philo->last_meal = get_time();  // update last_meal before printing
     pthread_mutex_unlock(philo->meal_lock);
     print_msg(philo, philo->id, "is eating\n");
-    ft_usleep(prog->time_to_eat);
+    // ft_usleep(prog->time_to_eat);
+
+    while(!dead_loop(philo))    // fixing if time to eat too long
+    {
+        if(get_time() - eat_start >= (size_t)philo->prog->time_to_eat)
+            break;
+        usleep(1000);
+    }
     pthread_mutex_lock(philo->meal_lock);
     philo->meals_eaten++;
     philo->eating = 0;
