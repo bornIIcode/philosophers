@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ytabia <ytabia@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/25 11:02:47 by ytabia            #+#    #+#             */
+/*   Updated: 2025/02/25 11:29:34 by ytabia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	check_args(char **argv)
@@ -21,6 +33,7 @@ int	check_args(char **argv)
 	}
 	return (0);
 }
+
 void	init_input(t_program *prog, char **argv)
 {
 	prog->num_of_philos = ft_atoi(argv[1]);
@@ -47,7 +60,7 @@ void	init_input(t_program *prog, char **argv)
 	if (prog->time_to_die < 60 || prog->time_to_eat < 60
 		|| prog->time_to_sleep < 60)
 		print_error(1,
-			"Error : (time to die/time to eat/time to sleep) must be 60 or greater\n");
+			"Error : (time to die/to eat/to sleep) must be 60 or greater\n");
 }
 
 void	init_prog(t_program *prog)

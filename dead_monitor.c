@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dead_monitor.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ytabia <ytabia@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/25 11:02:42 by ytabia            #+#    #+#             */
+/*   Updated: 2025/02/25 11:26:56 by ytabia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	*dead_monitor(void *args)
@@ -58,4 +70,26 @@ int	philo_dead(t_philo *philo, size_t time_to_die)
 	if (get_time() - last_meal_time >= time_to_die + 1 && eating_status == 0)
 		return (1);
 	return (0);
+}
+
+int	all_eat(t_program *prog)
+{
+	int	i;
+	int	all_eat;
+
+	if (prog->num_times_to_eat <= 0)
+		return (0);
+	i = 0;
+	all_eat = prog->num_of_philos;
+	pthread_mutex_lock(prog->philos[0].meal_lock);
+	while (i < prog->num_of_philos)
+	{
+		if (prog->philos[i].meals_eaten < prog->num_times_to_eat)
+			all_eat--;
+		i++;
+	}
+	pthread_mutex_unlock(prog->philos[0].meal_lock);
+	if (all_eat == 0)
+		return (0);
+	return (1);
 }

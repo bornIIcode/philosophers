@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_routine.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ytabia <ytabia@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/25 11:05:54 by ytabia            #+#    #+#             */
+/*   Updated: 2025/02/25 11:05:55 by ytabia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	*philo_routine(void *args)
@@ -20,7 +32,6 @@ void	*philo_routine(void *args)
 		eating(philo);
 		sleeping(philo);
 		thinking(philo);
-		// ft_usleep(5);
 		if (philo->meals_eaten == prog->num_times_to_eat)
 			break ;
 	}

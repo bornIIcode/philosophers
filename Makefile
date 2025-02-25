@@ -6,7 +6,7 @@ CFLAGS =   -Wall -Wextra -Werror -g #-fsanitize=thread
 
 RM = rm -rf
 
-SRC = main.c creat_threads.c dead_monitor.c utils.c philo_routine.c actions.c init.c \
+SRC = main.c creat_threads.c dead_monitor.c utils.c philo_routine.c philo_actions.c init.c print.c time.c\
 
 OBJ = $(SRC:.c=.o)
 
